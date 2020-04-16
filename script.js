@@ -271,40 +271,24 @@ const elizabethSanger = {
         crimeAndEnforcement: "Criminal sentencing reform to reduce our prison population"
     },
     donationURL: "www.SangerSuperpac.com",
-    calendarOfEvents: [
-        {pikeRally: {
-            date: "04/16/2020",
-            time: "6:00 PM",
-            location: "Pikeville"
-        }},
-        {graysonRally: {
-            date: "04/17/2020",
-            time: "6:00 PM",
-            location: "Grayson"
-        }},
-        {louFundraiser: {
-            date: "04/18/2020",
-            time: "7:00 PM",
-            location: "Louisville"
-        }}
-    ],
-    volunteerInfo: {
+    calendarOfEvents: ["Pikeville rally, April 16, 6:00PM","Louisville Fundraiser, April 17, 8:00PM","Ashland rally, April 18, 6:00PM"],
+    volunteerInfo: [{
         name: "Abdul Alhazred",
         address: "location unknown",
         email: "themadarab@email.com",
-        phone: 555-555-5555,
+        phone: "555-555-5555",
         availability: "mon - fri, 5:00pm - 11:00pm"
-    },
+    },],
     bio: "Born and raised in Morehead, KY to two agronomy professors, she spent her youth working in tobacco fields.  After high school she joined the United States Marine Corps and became medic.  After life in the USMC, she enrolled at the University of Kentucky where she received a Bachelor of Science in Biology and a Bachelor of Arts in Applied Chemistry.  She then went on to the University of Pikeville where she received her medical degree.  After receving her degree she worked at Kings Daughters Medical Center as a pediatrician.",
-    imageGallery: {
-        headShot: "https://www.literaryladiesguide.com/wp-content/uploads/2012/07/Shirley-Jackson1-187x267.jpg",
-        family: "https://ichef.bbci.co.uk/images/ic/256xn/p04l4bs1.jpg",
-        constituents: "https://cdn.cnn.com/cnnnext/dam/assets/180413102215-001-kentucky-teachers-capital-rally-2018-medium-plus-169.jpg"
-    },
+    imageGallery: [
+        {ImageName: "headShot", URL: "https://www.literaryladiesguide.com/wp-content/uploads/2012/07/Shirley-Jackson1-187x267.jpg"},
+        {ImageName: "family", URL: "https://ichef.bbci.co.uk/images/ic/256xn/p04l4bs1.jpg"},
+        {ImageName: "constituents", URL: "https://cdn.cnn.com/cnnnext/dam/assets/180413102215-001-kentucky-teachers-capital-rally-2018-medium-plus-169.jpg"},
+    ],
     missionStatement: "To increase living standards for the working class by implementing affordable college, Medicare for All, prison reform, and ending the disastorous War on Drugs.",
     registerVoteURL: "https://vrsws.sos.ky.gov/ovrweb/",
     
-    //Method to change the congressional district, donation url, bio, mission statement, and the url to register to vote .  The property and a string must be input into the arguments.  Example: setProperty: function("donationURL", "www.donate.com")
+    //Method to change the congressional district, donation url, bio, mission statement, and the url to register to vote .  The property and a string must be input into the arguments.  Example, elizabethSanger.setProperty("donationURL", "www.donate.com")
     setProperty: function(property, string) {
         this[property] = string
     },
@@ -314,14 +298,42 @@ const elizabethSanger = {
         this.platform.issue = string
     },
     
-    //Method to push a new event in the event calendar.  Input an event name, date, time, and location string into the arguments.
-    pushEvent: function(eventName, date, time, location) {
-        this.calendarOfEvents.push(`${eventName}: {date: ${date}, time:${time}, location: ${location}},`)
+    //Method to push a new event in the event calendar.  Input a single string explaining the event, date, and time.  Example, elizabethSanger.pushEvent("Morehead Rally, April 20, 4:00PM ")
+    pushEvent: function(string) {
+        this.calendarOfEvents.push(string)
+    },
+
+    //Method to input a new volunteer into volunteerInfor.  Input strings for the volunteers name, address, email, phone number, and availability.  Example, elizabethSanger.volunteerPush("HP Lovecraft", "Swan Point Cemetary, Providence, Rhode Island", "mountainofmadness@email.com","555-555-5556", "Never, he's dead")
+    volunteerPush: function(volName, volAddress, volEmail, volPhone, volAvailability){
+        let volObject = {
+            name: volName,
+            address: volAddress,
+            email: volEmail,
+            phone: volPhone,
+            availability: volAvailability
+        }
+        this.volunteerInfo.push(volObject)
+    },
+
+    //Method to push a new image to the image array.  Input the name of the image and the image URL as strings.  Example, elizabethSanger.imagePush("HQ", "https://newrivergorgecvb.com/wp-content/uploads/2019/04/tudors-2.jpg")
+    imagePush: function(picName, imageURL) {
+        let imageObject= {ImageName: picName, URL: imageURL}
+        this.imageGallery.push(imageObject)
     }
 }
 
 elizabethSanger.setProperty("donationURL", "www.donate.com")
 console.log(elizabethSanger.donationURL)
 
-elizabethSanger.pushEvent("moreheadRally", "April 30, 2020", "6:00pm", "Morehead")
-console.log(elizabethSanger.calendarOfEvents)
+elizabethSanger.changePlatformIssue("taxes", "No new taxes")
+console.log(elizabethSanger.platform.taxes)
+
+elizabethSanger.pushEvent("Morehead Rally, April 20, 4:00PM ")
+console.table(elizabethSanger.calendarOfEvents)
+
+elizabethSanger.volunteerPush("HP Lovecraft", "Swan Point Cemetary, Providence, Rhode Island", "mountainofmadness@email.com","555-555-5556", "Never, he's dead")
+console.table(elizabethSanger.volunteerInfo)
+
+elizabethSanger.imagePush("HQ", "https://newrivergorgecvb.com/wp-content/uploads/2019/04/tudors-2.jpg")
+console.table(elizabethSanger.imageGallery)
+
